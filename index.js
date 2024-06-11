@@ -27,9 +27,17 @@ app.get('/delete/:fileName', function (req, res) {
     })
 })
 
+app.get('/edit/:oldName/:newName', function (req, res) {
+    fs.rename(`./files/${req.params.oldName}`, `./files/${req.params.newName}.txt`, function (err) {
+        console.log(err)
+        res.redirect("/")
+    })
+})
+
 app.post('/create', (req, res) => {
     fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, req.body.details, (err) => {
         res.redirect("/")
+
         console.log(err)
     })
 })
